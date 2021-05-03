@@ -6,7 +6,7 @@ class ProductPage(BasePage):
     def add_to_basket(self):
         button = self.browser.find_element(*ProductPageLocators.BTN_ADD_TO_BASKET)
         button.click()
-        self.solve_quiz_and_get_code()
+        # self.solve_quiz_and_get_code()
 
     def should_be_right_basket_messages(self):
         self.should_be_right_product_name()
@@ -21,6 +21,17 @@ class ProductPage(BasePage):
         message_add_to_basket_price = self.browser.find_element(*ProductPageLocators.TEXT_ADD_TO_BASKET_PRODUCT_PRICE)
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
         assert message_add_to_basket_price.text == product_price.text, 'Product price is not correct'
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.TEXT_ADD_TO_BASKET_PRODUCT_NAME), \
+            "Success message is presented, but should not be"
+
+    def should_be_disappeared(self):
+        assert self.is_disappeared(*ProductPageLocators.TEXT_ADD_TO_BASKET_PRODUCT_NAME), \
+            "Success message is not disappeared, but should be"
+
+
+
 
     # def should_be_equal_elem1_and_elem2(self, elem1, elem2):
     #     element1 = self.browser.find_element(*elem1)
